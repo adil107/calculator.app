@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <link rel="stylesheet" href="calculator.css">
+</head>
+
+<body>
+    <div class="calculatorbody">
+
+        <div class="cal-head child">
+            <h1>Simple Calculator</h1>
+            <label for="">
+                <div class="round"></div>
+            </label>
+        </div>
+
+
+        <div class="cal-body child">
+            <div>
+                <h1 id="input"></h1>
+                <p id="output">0</p>
+            </div>
+        </div>
+
+
+        <div class="cal-footer child">
+            <div><span onclick="clc('C')" class="oprator">C</span></div>
+            <div><span onclick="clc('AC')" class="oprator">AC</span></div>
+            <div><span onclick="clc('%')" class="oprator">%</span></div>
+            <div><span onclick="clc('/')" class="oprator">/</span></div>
+            <div><span onclick="clc('7')">7</span></div>
+            <div><span onclick="clc('8')">8</span></div>
+            <div><span onclick="clc('9')">9</span></div>
+            <div><span onclick="clc('*')" class="oprator">x</span></div>
+            <div><span onclick="clc('4')">4</span></div>
+            <div><span onclick="clc('5')">5</span></div>
+            <div><span onclick="clc('6')">6</span></div>
+            <div><span onclick="clc('-')" class="oprator">-</span></div>
+            <div><span onclick="clc('1')">1</span></div>
+            <div><span onclick="clc('2')">2</span></div>
+            <div><span onclick="clc('3')">3</span></div>
+            <div><span onclick="clc('+')" class="oprator">+</span></div>
+            <div><span onclick="clc('0')">0</span></div>
+            <div><span onclick="clc('00')">00</span></div>
+            <div><span onclick="clc('.')">.</span></div>
+            <div><span onclick="clc('=')" class="equal-symbl">=</span></div>
+        </div>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/7.2.0/math.min.js"></script>
+<script>
+
+    let input = document.querySelector("#input")
+
+    let output = document.querySelector("#output")
+   
+
+    let round = document.querySelector(".round");
+    round.addEventListener("click",(e)=>{
+        if(!e.target.classList.contains("right")){
+            round.classList.add("right")
+            round.style.background = "white"
+            document.querySelector(".calculatorbody").style.background = "black"
+        }
+        else{
+            round.classList.remove("right")
+            document.querySelector(".calculatorbody").style.background = "rgba(255,255,255,0.9)"
+            round.style.background = "black"
+
+
+        }
+    })
+
+    function clc(data) {
+        // input.innerHTML += e.target.textContent
+
+        switch (data) {
+            case "AC":
+                input.innerHTML = ""
+                output.innerHTML = "0"
+                break;
+
+            case "C":
+                input.innerHTML = input.innerHTML.substr(0, input.innerHTML.length - 1);
+                // output.innerHTML  = math.evaluate(input.innerHTML) == undefined ? 0:math.evaluate(input.innerHTML)
+                output.innerHTML = math.evaluate(input.innerHTML)
+                if (output.innerHTML == "undefined") {
+                    output.innerHTML = "0"
+                }
+                break;
+
+            case "=":
+                output.innerHTML ="="+math.evaluate(input.innerHTML)
+                if (output.innerHTML == "undefined" || output.innerHTML == "=undefined") {
+                    output.innerHTML = "0"
+                }
+
+                break;
+            default:
+                input.innerHTML += data;
+
+        }
+
+
+    }
+</script>
+
+
+</html>
